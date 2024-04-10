@@ -1,4 +1,3 @@
-// controllers/TicketController.js
 const Ticket = require("../models/ticket");
 
 module.exports = {
