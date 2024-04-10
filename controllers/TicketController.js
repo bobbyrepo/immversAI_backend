@@ -22,19 +22,19 @@ module.exports = {
   },
 
   async createTicket(req, res) {
-    const { price, creatorName, creatorID } = req.body;
-    try {
-      const newTicket = new Ticket({ price, creatorName, creatorID });
-      await newTicket.save();
-      res.status(201).json(newTicket);
-    } catch (error) {
-      res.status(400).json({ message: error.message });
-    }
+    // const { price, creatorName, creatorID } = req.body;
+    // try {
+    //   const newTicket = new Ticket({ price, creatorName, creatorID });
+    //   await newTicket.save();
+    //   res.status(201).json(newTicket);
+    // } catch (error) {
+    //   res.status(400).json({ message: error.message });
+    // }
   },
 
   async updateTicket(req, res) {
     const { id } = req.params;
-    const { bookedBy } = req.body;
+    const { email, name } = req.body;
     try {
       const ticket = await Ticket.findById(id);
       if (!ticket) return res.status(404).json({ message: "Ticket not found" });
@@ -42,13 +42,11 @@ module.exports = {
       let updateFields = {};
 
       if (ticket.booked) {
-        if (String(ticket.bookedBy) == String(bookedBy)) {
-          updateFields = { booked: false, bookedBy: null };
-          console.log("asas");
+        if (ticket.email == email) {
+          updateFields = { booked: false, email: null, name: null };
         }
       } else {
-        updateFields = { booked: true, bookedBy: bookedBy };
-        console.log("dddddd");
+        updateFields = { booked: true, email, name };
       }
 
       const updatedTicket = await Ticket.findByIdAndUpdate(id, updateFields, {
