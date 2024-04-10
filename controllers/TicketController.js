@@ -22,9 +22,9 @@ module.exports = {
   },
 
   async createTicket(req, res) {
-    const { price, bookedBy, createdBy } = req.body;
+    const { price, creatorName, creatorID } = req.body;
     try {
-      const newTicket = new Ticket({ price, bookedBy, createdBy });
+      const newTicket = new Ticket({ price, creatorName, creatorID });
       await newTicket.save();
       res.status(201).json(newTicket);
     } catch (error) {
@@ -36,13 +36,26 @@ module.exports = {
     const { id } = req.params;
     const { bookedBy } = req.body;
     try {
-      const ticket = await Ticket.findByIdAndUpdate(
-        id,
-        { booked: true, bookedBy: bookedBy },
-        { new: true }
-      );
+      const ticket = await Ticket.findById(id);
       if (!ticket) return res.status(404).json({ message: "Ticket not found" });
-      res.json(ticket);
+
+      let updateFields = {};
+
+      if (ticket.booked) {
+        if (String(ticket.bookedBy) == String(bookedBy)) {
+          updateFields = { booked: false, bookedBy: null };
+          console.log("asas");
+        }
+      } else {
+        updateFields = { booked: true, bookedBy: bookedBy };
+        console.log("dddddd");
+      }
+
+      const updatedTicket = await Ticket.findByIdAndUpdate(id, updateFields, {
+        new: true,
+      });
+
+      res.json(updatedTicket);
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
