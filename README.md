@@ -17,6 +17,7 @@ This Ticket Booking System.It provides RESTful APIs for handling ticket operatio
   - Create a new ticket.
   - Request body:
     - `price` (Price of the ticket)
+    - `seatNo`
   
 - **PUT /api/tickets/:id**
   - Update an existing ticket by its ID.
