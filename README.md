@@ -24,7 +24,7 @@ This Ticket Booking System.It provides RESTful APIs for handling ticket operatio
   - Request parameter: id (ID of the ticket)
   - Request body:
     - `name` (Name)
-    - `email` (Name)
+    - `email` (email)
 
 - **DELETE /api/tickets/:id**
   - Delete a ticket by its ID.
