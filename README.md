@@ -37,7 +37,7 @@ The backend of the project utilizes the following technologies:
 - **Node.js with Express:** Provides the server-side framework for building RESTful APIs.
 
 - **Database:**
-  - **MongoDB:** Stores blog posts, news and user data.
+  - **MongoDB:** Stores ticket data.
 
 Before you can run this project, you need to set up some environment variables. Create an `.env` file in the project root and add the following variables:
 
